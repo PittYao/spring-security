@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyao.spring.security.dao.RoleMapper">
+
+
+    <select id="listMenuIdByIdAndParentId" resultType="java.lang.Integer">
+        select mid
+        from menu_role,
+        menu m
+        where rid = #{id,jdbcType=INTEGER}
+        and m.id = mid
+        and m.enabled = 1
+        <if test="parentId != null">
+            and m.parentId = #{parentId}
+        </if>
+    </select>
+</mapper>

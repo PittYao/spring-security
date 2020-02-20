@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyao.spring.security.dao.MenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.fanyao.spring.security.model.po.Menu">
+        <id column="mid" property="id"/>
+        <result column="url" property="url"/>
+        <result column="path" property="path"/>
+        <result column="component" property="component"/>
+        <result column="name" property="name"/>
+        <result column="iconCls" property="iconCls"/>
+        <result column="keepAlive" property="keepAlive"/>
+        <result column="requireAuth" property="requireAuth"/>
+        <result column="parentId" property="parentId"/>
+        <result column="enabled" property="enabled"/>
+        <result column="isMenu" property="isMenu"/>
+    </resultMap>
+
+    <resultMap id="IncludeRolesResultMap" type="com.fanyao.spring.security.model.po.Menu" extends="BaseResultMap">
+        <collection property="roles" ofType="com.fanyao.spring.security.model.po.Role">
+            <id column="rid" property="id"/>
+            <result column="rName" property="name"/>
+            <result column="nameZh" property="nameZh"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="IncludeChildrenResultMap" type="com.fanyao.spring.security.model.po.Menu" extends="BaseResultMap">
+        <collection property="children" ofType="com.fanyao.spring.security.model.po.Menu" select="selectChildren"
+                    column="mid">
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,url,path,component,name,iconCls,keepAlive,requireAuth,parentId,enabled
+    </sql>
+
+    <select id="listAll" resultMap="IncludeRolesResultMap">
+        select m.id   mid,
+               m.url,
+               m.path,
+               m.component,
+               m.name,
+               m.iconCls,
+               m.keepAlive,
+               m.requireAuth,
+               m.parentId,
+               m.enabled,
+               r.id   rid,
+               r.name rName,
+               r.nameZh
+        from menu m,
+             role r,
+             menu_role mr
+        where m.id = mr.mid
+          and r.id = mr.rid
+    </select>
+
+    <select id="getMenuAndChildrenById" resultMap="IncludeChildrenResultMap">
+        select m.id mid,
+               m.url,
+               m.path,
+               m.component,
+               m.name,
+               m.iconCls,
+               m.keepAlive,
+               m.requireAuth,
+               m.parentId,
+               m.enabled,
+               m.isMenu
+        from menu m
+        where m.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectChildren" resultMap="IncludeChildrenResultMap">
+        select m.id mid,
+               m.url,
+               m.path,
+               m.component,
+               m.name,
+               m.iconCls,
+               m.keepAlive,
+               m.requireAuth,
+               m.parentId,
+               m.enabled,
+               m.isMenu
+        from menu m
+        where m.parentId = #{mid,jdbcType=INTEGER}
+          and m.enabled = 1
+          and m.isMenu = 1
+    </select>
+</mapper>

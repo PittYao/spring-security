@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyao.spring.security.dao.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.fanyao.spring.security.model.po.User">
+        <id column="uid" property="id"/>
+        <result column="password" property="passWord"/>
+        <result column="username" property="userName"/>
+        <result column="enabled" property="enabled"/>
+        <result column="account_non_expired" property="accountNonExpired"/>
+        <result column="account_non_locked" property="accountNonLocked"/>
+        <result column="credentials_non_expired" property="credentialsNonExpired"/>
+        <collection property="roles" ofType="com.fanyao.spring.security.model.po.Role">
+            <id column="rid" property="id"/>
+            <result column="rName" property="name"/>
+            <result column="nameZh" property="nameZh"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,password,username,enabled,accountNonExpired,accountNonLocked,credentialsNonExpired
+    </sql>
+
+    <select id="selectOneIncludeRoles" resultMap="BaseResultMap">
+        select u.id   uid,
+               u.password,
+               u.username,
+               u.enabled,
+               u.account_non_expired,
+               u.account_non_locked,
+               u.credentials_non_expired,
+               r.id   rid,
+               r.name rName,
+               r.nameZh
+        from user u,
+             role r,
+             user_role ur
+        where u.id = ur.user_id
+          and r.id = ur.rid
+          and username = #{userName,jdbcType=VARCHAR}
+    </select>
+</mapper>
