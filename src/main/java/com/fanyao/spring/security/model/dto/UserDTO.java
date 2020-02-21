@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder
 public class UserDTO {
+    @NotNull(groups = OtherGroup.class, message = "id不能为空")
     private Integer id;
 
     @NotBlank(groups = DefaultGroup.class, message = "账号不能为空")

@@ -13,6 +13,7 @@ import com.fanyao.spring.security.config.authentication.login.voter.MyExpression
 import com.fanyao.spring.security.config.authentication.logout.MyLogOutSuccessHandler;
 import com.fanyao.spring.security.service.IMenuService;
 import com.fanyao.spring.security.service.IUserService;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,6 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private IMenuService menuService;
+    @Autowired
+    private Mapper mapper;
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -153,9 +156,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomAuthenticationFilter customAuthenticationFilter() throws Exception {
         CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
 
-        filter.setAuthenticationSuccessHandler(new MyAuthenticationSuccessHandler());
+        filter.setAuthenticationSuccessHandler(new MyAuthenticationSuccessHandler(mapper));
         filter.setAuthenticationFailureHandler(new MyAuthenticationFailureHandler());
-//        filter.setFilterProcessesUrl("/sign_in");
+        // 登录地址
+        filter.setFilterProcessesUrl("/login");
         // authenticationManagerBean默认的认证逻辑
 //        filter.setAuthenticationManager(authenticationManagerBean());
         // 多方式登录组合
@@ -166,7 +170,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // -------------------------登录认证逻辑 开始------------------------------//
     // 自定义的认证逻辑
     private MyAuthenticationProvider getMyAuthenticationProvider() {
-        return new MyAuthenticationProvider(userService, passwordEncoder);
+        return new MyAuthenticationProvider(userService, passwordEncoder, mapper);
     }
 
     // 默认的认证逻辑

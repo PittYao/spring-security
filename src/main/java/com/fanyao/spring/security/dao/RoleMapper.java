@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface RoleMapper extends BaseMapper<Role> {
     List<Integer> listMenuIdByIdAndParentId(@Param("id") Integer id, @Param("parentId") Integer parentId);
+
+    List<Role> listRoleByUserId(@Param("userId") Integer userId);
 }
