@@ -1,5 +1,6 @@
 package com.fanyao.spring.security.config.authentication.login.provider;
 
+import com.fanyao.spring.security.config.authentication.exception.MySecurityException;
 import com.fanyao.spring.security.service.IUserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Objects;
 
 /**
  * @author: bugProvider
@@ -28,9 +31,13 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // 认证逻辑
+        log.info("自定义的登录验证逻辑 MyAuthenticationProvider");
         String userName = (String) authentication.getPrincipal();
         String passWord = (String) authentication.getCredentials();
-        log.info("自定义的登录验证逻辑 MyAuthenticationProvider");
+
+        if (Objects.isNull(userName) || Objects.isNull(passWord)) {
+            throw new MySecurityException("用户名或密码不能为空");
+        }
 
         UserDetails userDetails = userService.loadUserByUsername(userName);
         // 验证规则
