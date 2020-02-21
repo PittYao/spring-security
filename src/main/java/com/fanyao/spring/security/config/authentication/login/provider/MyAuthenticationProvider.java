@@ -1,10 +1,12 @@
 package com.fanyao.spring.security.config.authentication.login.provider;
 
 import com.fanyao.spring.security.config.authentication.exception.MySecurityException;
+import com.fanyao.spring.security.model.dto.UserDetailsDTO;
 import com.fanyao.spring.security.service.IUserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dozer.Mapper;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +29,7 @@ import java.util.Objects;
 public class MyAuthenticationProvider implements AuthenticationProvider {
     private IUserService userService;
     private PasswordEncoder bCryptPasswordEncoder;
+    private Mapper mapper;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -40,11 +43,10 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         }
 
         UserDetails userDetails = userService.loadUserByUsername(userName);
-        // 验证规则
+        // 验证密码
         boolean matches = bCryptPasswordEncoder.matches(passWord, userDetails.getPassword());
 
         if (matches) {
-            // 验证通过
             return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
         }
 

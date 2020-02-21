@@ -12,4 +12,6 @@ import java.util.List;
  */
 public interface IRoleService extends IService<Role> {
     List<Integer> listMenuIdByRoleId(Integer id,Integer parentId);
+
+    List<Role> listRoleByUserId(Integer userId);
 }

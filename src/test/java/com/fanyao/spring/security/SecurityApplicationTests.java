@@ -45,7 +45,7 @@ class SecurityApplicationTests {
 
     @Test
     void testLoadUser() {
-        User user = userMapper.selectOneIncludeRoles("admin");
+        List<User> admin = userMapper.selectOneIncludeRoles("admin");
     }
 
     @Test

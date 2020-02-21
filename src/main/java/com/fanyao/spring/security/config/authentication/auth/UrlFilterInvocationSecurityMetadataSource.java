@@ -11,7 +11,10 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,11 +40,8 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         //获取请求地址
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
+
         log.info("通过当前的请求地址，获取该地址需要的用户角色名称集合");
-        // loginPage 放过
-//        if ("/login".equals(requestUrl)) {
-//            return null;
-//        }
 
         if (CollectionUtils.isEmpty(allMenu)) {
             loadResourcePermission();

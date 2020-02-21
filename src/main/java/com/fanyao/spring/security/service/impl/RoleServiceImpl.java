@@ -24,4 +24,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     public List<Integer> listMenuIdByRoleId(Integer id,Integer parentId) {
         return roleMapper.listMenuIdByIdAndParentId(id,parentId);
     }
+
+    @Override
+    public List<Role> listRoleByUserId(Integer userId) {
+        return roleMapper.listRoleByUserId(userId);
+    }
 }
