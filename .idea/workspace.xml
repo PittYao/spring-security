@@ -3,30 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="336cc1ae-5412-4def-a69a-4fb8ba481788" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/auth/UrlFilterInvocationSecurityMetadataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/auth/UrlFilterInvocationSecurityMetadataSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/handler/MyAuthenticationSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/handler/MyAuthenticationSuccessHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/provider/MyAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/provider/MyAuthenticationProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/dao/RoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/dao/RoleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/dao/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/dao/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/model/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/model/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/model/dto/UserDetailsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/model/dto/UserDetailsDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/IRoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/IRoleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/IUserDetailService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/RoleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserDetailServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/RoleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/RoleMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/fanyao/spring/security/SecurityApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/fanyao/spring/security/SecurityApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/config/authentication/auth/UrlFilterInvocationSecurityMetadataSource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/config/authentication/auth/UrlFilterInvocationSecurityMetadataSource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/dao/RoleMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/dao/RoleMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/dao/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/dao/UserMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/service/IRoleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/service/IRoleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/service/impl/RoleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/service/impl/RoleServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/fanyao/spring/security/service/impl/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/RoleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/RoleMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/fanyao/spring/security/SecurityApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/fanyao/spring/security/SecurityApplicationTests.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -78,74 +54,7 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/provider/MyAuthenticationProvider.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="742">
-              <caret line="57" column="5" lean-forward="true" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/auth/UrlAccessDecisionManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="41" selection-start-line="41" selection-end-line="41" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/controller/UserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="106" column="73" lean-forward="true" selection-start-line="106" selection-start-column="73" selection-end-line="106" selection-end-column="73" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/auth/UrlFilterInvocationSecurityMetadataSource.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/handler/MyAuthenticationSuccessHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -174,7 +83,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="userDetails" />
       </map>
     </option>
   </component>
@@ -229,12 +138,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/auth/UrlFilterInvocationSecurityMetadataSource.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/model/dto/UserDetailsImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/model/dto/UserDetailsDTO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/provider/MyAuthenticationProvider.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/SecurityConfig.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/0329af06-3030-4fff-a910-408650cf509b/console.sql" />
         <option value="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/handler/MyAuthenticationSuccessHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/model/dto/UserDTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/provider/MyAuthenticationProvider.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/SecurityConfig.java" />
       </list>
     </option>
   </component>
@@ -331,17 +240,6 @@
               <item name="security" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
               <item name="authentication" type="462c0819:PsiDirectoryNode" />
-              <item name="auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="security" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-              <item name="authentication" type="462c0819:PsiDirectoryNode" />
               <item name="login" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -374,6 +272,25 @@
               <item name="security" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
               <item name="dto" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="security" type="b2602c69:ProjectViewProjectNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="security" type="b2602c69:ProjectViewProjectNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="IUserService" type="1a9f42e2:ClassTreeNode" />
             </path>
             <path>
               <item name="security" type="b2602c69:ProjectViewProjectNode" />
@@ -451,8 +368,9 @@
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.fanyao.spring.security.service.impl" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\myWork\WorkSpace\private\security\src\main\resources\mapper" />
+      <recent name="C:\myWork\WorkSpace\private\security\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.fanyao.spring.security.service" />
@@ -461,9 +379,8 @@
       <recent name="com.fanyao.spring.security.config.mybatis" />
       <recent name="com.fanyao.spring.security.controller" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\myWork\WorkSpace\private\security\src\main\resources\mapper" />
-      <recent name="C:\myWork\WorkSpace\private\security\src\main\resources" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.fanyao.spring.security.service.impl" />
     </key>
   </component>
   <component name="RestClientSettings">
@@ -705,7 +622,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582252741862</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="init">
+      <created>1582281587701</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1582281587701</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -741,13 +665,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137840000" />
+    <option name="totallyTimeSpent" value="138192000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23126338" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23126338" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -770,7 +693,7 @@
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Version Control" order="14" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.32964602" />
       <window_info anchor="bottom" id="Alibaba Cloud View" order="15" />
       <window_info anchor="bottom" id="Messages" order="16" weight="0.23783186" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -798,7 +721,8 @@
     <MESSAGE value="init jwt" />
     <MESSAGE value="Merge branch 'jwt' of https://github.com/PittYao/spring-security&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="加入userDetails" />
-    <option name="LAST_COMMIT_MESSAGE" value="加入userDetails" />
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -895,19 +819,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserServiceImpl.java</url>
-          <line>69</line>
+          <line>62</line>
           <properties />
           <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserServiceImpl.java</url>
-          <line>64</line>
+          <line>57</line>
           <properties />
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserServiceImpl.java</url>
-          <line>82</line>
+          <line>75</line>
           <properties />
           <option name="timeStamp" value="57" />
         </line-breakpoint>
@@ -919,7 +843,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/provider/MyAuthenticationProvider.java</url>
-          <line>46</line>
+          <line>44</line>
           <properties />
           <option name="timeStamp" value="63" />
         </line-breakpoint>
@@ -967,13 +891,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserServiceImpl.java</url>
-          <line>96</line>
+          <line>89</line>
           <properties />
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/provider/MyAuthenticationProvider.java</url>
-          <line>40</line>
+          <line>38</line>
           <properties />
           <option name="timeStamp" value="76" />
         </line-breakpoint>
@@ -985,13 +909,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserServiceImpl.java</url>
-          <line>45</line>
+          <line>38</line>
           <properties />
           <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/provider/MyAuthenticationProvider.java</url>
-          <line>48</line>
+          <line>46</line>
           <properties />
           <option name="timeStamp" value="95" />
         </line-breakpoint>
@@ -1112,13 +1036,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/IUserDetailService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/IUserDetailService.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.2.1.RELEASE/spring-security-web-5.2.1.RELEASE-sources.jar!/org/springframework/security/web/FilterInvocation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -1218,36 +1136,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/IUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/CustomAuthenticationFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="40" column="37" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+        <state relative-caret-position="832">
+          <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserDetailServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="59" column="13" lean-forward="true" selection-start-line="49" selection-start-column="11" selection-end-line="59" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserDetailServiceImpl.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/dao/UserMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -1273,27 +1172,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="4" column="78" lean-forward="true" selection-start-line="4" selection-start-column="78" selection-end-line="4" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.2.1.RELEASE/spring-security-core-5.2.1.RELEASE-sources.jar!/org/springframework/security/core/userdetails/UserDetails.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
           <caret line="66" column="25" lean-forward="true" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/model/po/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="43" column="27" lean-forward="true" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1311,18 +1193,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="514">
           <caret line="71" column="65" lean-forward="true" selection-start-line="71" selection-start-column="65" selection-end-line="71" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/SecurityConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="157" lean-forward="true" selection-start-line="157" selection-end-line="157" />
-          <folding>
-            <element signature="docComment;class#SecurityConfig#0" />
-            <element signature="e#5021#5080#0" />
-            <element signature="docComment;method#customAuthenticationFilter#0;class#SecurityConfig#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1404,13 +1274,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/provider/MyAuthenticationProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="57" column="5" lean-forward="true" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/auth/UrlFilterInvocationSecurityMetadataSource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -1443,11 +1306,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/impl/UserServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="106" column="73" lean-forward="true" selection-start-line="106" selection-start-column="73" selection-end-line="106" selection-end-column="73" />
+        <state relative-caret-position="410">
+          <caret line="21" column="3" lean-forward="true" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/service/IUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/model/po/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/authentication/login/provider/MyAuthenticationProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="14" column="52" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fanyao/spring/security/config/SecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="751">
+          <caret line="156" column="75" selection-start-line="156" selection-start-column="75" selection-end-line="156" selection-end-column="75" />
         </state>
       </provider>
     </entry>
