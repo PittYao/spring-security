@@ -1,14 +1,14 @@
 package com.fanyao.spring.security.config;
 
+import com.fanyao.spring.security.config.authentication.auth.MyAuthenticationEntryPoint;
 import com.fanyao.spring.security.config.authentication.auth.UrlAccessDecisionManager;
 import com.fanyao.spring.security.config.authentication.auth.UrlFilterInvocationSecurityMetadataSource;
+import com.fanyao.spring.security.config.authentication.login.CustomAuthenticationFilter;
 import com.fanyao.spring.security.config.authentication.login.filter.MyTokenFilter;
 import com.fanyao.spring.security.config.authentication.login.handler.MyAccessDeniedHandler;
-import com.fanyao.spring.security.config.authentication.auth.MyAuthenticationEntryPoint;
-import com.fanyao.spring.security.config.authentication.login.CustomAuthenticationFilter;
 import com.fanyao.spring.security.config.authentication.login.handler.MyAuthenticationFailureHandler;
-import com.fanyao.spring.security.config.authentication.login.provider.MyAuthenticationProvider;
 import com.fanyao.spring.security.config.authentication.login.handler.MyAuthenticationSuccessHandler;
+import com.fanyao.spring.security.config.authentication.login.provider.MyAuthenticationProvider;
 import com.fanyao.spring.security.config.authentication.login.voter.MyExpressionVoter;
 import com.fanyao.spring.security.config.authentication.logout.MyLogOutSuccessHandler;
 import com.fanyao.spring.security.service.IMenuService;
@@ -22,7 +22,8 @@ import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.AuthenticatedVoter;
 import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.access.vote.UnanimousBased;
-import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -170,7 +171,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // -------------------------登录认证逻辑 开始------------------------------//
     // 自定义的认证逻辑
     private MyAuthenticationProvider getMyAuthenticationProvider() {
-        return new MyAuthenticationProvider(userService, passwordEncoder, mapper);
+        return new MyAuthenticationProvider(userService, passwordEncoder);
     }
 
     // 默认的认证逻辑

@@ -1,7 +1,6 @@
 package com.fanyao.spring.security.config.authentication.login.provider;
 
 import com.fanyao.spring.security.config.authentication.exception.MySecurityException;
-import com.fanyao.spring.security.model.dto.UserDetailsDTO;
 import com.fanyao.spring.security.service.IUserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -29,7 +28,6 @@ import java.util.Objects;
 public class MyAuthenticationProvider implements AuthenticationProvider {
     private IUserService userService;
     private PasswordEncoder bCryptPasswordEncoder;
-    private Mapper mapper;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

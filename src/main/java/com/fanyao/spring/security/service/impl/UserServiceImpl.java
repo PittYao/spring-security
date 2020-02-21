@@ -6,23 +6,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fanyao.spring.security.config.authentication.exception.MySecurityException;
 import com.fanyao.spring.security.config.authentication.util.IAuthenticationFacade;
 import com.fanyao.spring.security.dao.UserMapper;
-import com.fanyao.spring.security.model.po.Role;
-import com.fanyao.spring.security.model.po.User;
 import com.fanyao.spring.security.model.dto.UserDTO;
-import com.fanyao.spring.security.service.IRoleService;
+import com.fanyao.spring.security.model.po.User;
 import com.fanyao.spring.security.service.IUserService;
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
