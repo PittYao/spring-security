@@ -650,11 +650,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SecurityApplicationTests.contextLoads" />
         <item itemvalue="JUnit.SecurityApplicationTests.testRole" />
         <item itemvalue="JUnit.SecurityApplicationTests.testMenu" />
         <item itemvalue="JUnit.SecurityApplicationTests.testLoadUser" />
         <item itemvalue="JUnit.SecurityApplicationTests.test" />
+        <item itemvalue="JUnit.SecurityApplicationTests.contextLoads" />
       </list>
     </recent_temporary>
   </component>
