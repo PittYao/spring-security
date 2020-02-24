@@ -5,7 +5,6 @@ import com.fanyao.spring.security.service.IUserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dozer.Mapper;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +28,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     private IUserService userService;
     private PasswordEncoder bCryptPasswordEncoder;
 
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // 认证逻辑
@@ -50,9 +50,6 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 
         // 验证不通过 进入下一个provider
         throw new BadCredentialsException("用户名或密码输入错误");
-
-        // 验证不通过
-//        return null;
     }
 
     @Override

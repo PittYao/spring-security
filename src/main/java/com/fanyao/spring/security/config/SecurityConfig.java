@@ -1,13 +1,12 @@
 package com.fanyao.spring.security.config;
 
+import com.fanyao.spring.security.config.authentication.auth.JwtAuthenticationFilter;
 import com.fanyao.spring.security.config.authentication.auth.MyAuthenticationEntryPoint;
 import com.fanyao.spring.security.config.authentication.auth.UrlAccessDecisionManager;
 import com.fanyao.spring.security.config.authentication.auth.UrlFilterInvocationSecurityMetadataSource;
-import com.fanyao.spring.security.config.authentication.login.CustomAuthenticationFilter;
+import com.fanyao.spring.security.config.authentication.login.filter.JwtLoginFilter;
 import com.fanyao.spring.security.config.authentication.login.filter.MyTokenFilter;
 import com.fanyao.spring.security.config.authentication.login.handler.MyAccessDeniedHandler;
-import com.fanyao.spring.security.config.authentication.login.handler.MyAuthenticationFailureHandler;
-import com.fanyao.spring.security.config.authentication.login.handler.MyAuthenticationSuccessHandler;
 import com.fanyao.spring.security.config.authentication.login.provider.MyAuthenticationProvider;
 import com.fanyao.spring.security.config.authentication.login.voter.MyExpressionVoter;
 import com.fanyao.spring.security.config.authentication.logout.MyLogOutSuccessHandler;
@@ -30,6 +29,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
@@ -64,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    // 身份认证
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 注册一个账号
@@ -86,8 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()//开启登录配置
-//                .antMatchers("/hello").hasRole("admin")//表示访问 /hello 这个接口，需要具备 admin 这个角色
-//                .antMatchers("/hello1").hasRole("user")//表示访问 /hello1 这个接口，需要具备 user 这个角色
+//                 鉴权
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O o) {
@@ -97,75 +97,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         return o;
                     }
                 })
+
                 .anyRequest().authenticated()//表示剩余的其他接口，登录之后就能访问
-//                .accessDecisionManager(accessDecisionManager())// 鉴权
-                .and().formLogin()
-
-//                //定义登录页面，未登录时，访问一个需要登录之后才能访问的接口，会自动跳转到该页面
-//                .loginPage("/login")
-//                //登录处理接口
-//                .loginProcessingUrl("/sign_in")
-//                //定义登录时，用户名的 key，默认为 username
-//                .usernameParameter("username")
-//                //定义登录时，用户密码的 key，默认为 password
-//                .passwordParameter("password")
-//                //登录成功的处理器
-//                .successHandler(new AuthenticationSuccessHandler() {
-//                    @Override
-//                    public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication authentication) throws IOException, ServletException {
-//                        resp.setContentType("application/json;charset=utf-8");
-//                        PrintWriter out = resp.getWriter();
-//                        out.write("success");
-//                        out.flush();
-//                        out.close();
-//                    }
-//                })
-//                .failureHandler(new AuthenticationFailureHandler() {
-//                    @Override
-//                    public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse resp, AuthenticationException exception) throws IOException, ServletException {
-//                        resp.setContentType("application/json;charset=utf-8");
-//                        PrintWriter out = resp.getWriter();
-//                        out.write("fail");
-//                        out.flush();
-//                        out.close();
-//                    }
-//                })
-
-                .permitAll()//和登录相关的接口统统都直接通过
+                .and()
+                .formLogin()
+                .permitAll()
                 .and().httpBasic()
                 .and().csrf().disable();
+
+        // 在LogoutFilter后加入自定义过滤器
+        http.addFilterAfter(new MyTokenFilter(), LogoutFilter.class);
+
+        // 禁用session
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        // 登录
+        http.addFilterBefore(new JwtLoginFilter("/login", getAuthenticationManager()), UsernamePasswordAuthenticationFilter.class);
+
+        // 校验token
+        http.addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         // 登出
         http.logout().logoutUrl("/logout").logoutSuccessHandler(new MyLogOutSuccessHandler());
 
-        // json登录
-        http.addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
+        // 统一异常处理
         http.exceptionHandling()
                 // 权限不足
                 .accessDeniedHandler(new MyAccessDeniedHandler())
-                // 直接访问接口 返回异常json
+                // 不登录直接访问接口 返回异常json
                 .authenticationEntryPoint(new MyAuthenticationEntryPoint());
 
-        // 在LogoutFilter后加入自定义过滤器
-        http.addFilterAfter(new MyTokenFilter(), LogoutFilter.class);
-    }
-
-    /**
-     * 自定义json登录/login过滤器
-     */
-    private CustomAuthenticationFilter customAuthenticationFilter() throws Exception {
-        CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
-
-        filter.setAuthenticationSuccessHandler(new MyAuthenticationSuccessHandler(mapper));
-        filter.setAuthenticationFailureHandler(new MyAuthenticationFailureHandler());
-        // 登录地址
-        filter.setFilterProcessesUrl("/login");
-        // authenticationManagerBean默认的认证逻辑
-//        filter.setAuthenticationManager(authenticationManagerBean());
-        // 多方式登录组合
-        filter.setAuthenticationManager(getAuthenticationManager());
-        return filter;
     }
 
     // -------------------------登录认证逻辑 开始------------------------------//
