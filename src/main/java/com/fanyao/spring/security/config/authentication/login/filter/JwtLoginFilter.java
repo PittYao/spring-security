@@ -115,7 +115,7 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
         } else if (e instanceof AccountExpiredException) {
             rspBean.setMsg("账户过期");
         } else if (e instanceof DisabledException) {
-            rspBean.setMsg("账户被禁用过期");
+            rspBean.setMsg("账户被禁用");
         } else if (e instanceof BadCredentialsException) {
             rspBean.setMsg("用户名或密码输入错误");
         } else if (e instanceof UsernameNotFoundException) {

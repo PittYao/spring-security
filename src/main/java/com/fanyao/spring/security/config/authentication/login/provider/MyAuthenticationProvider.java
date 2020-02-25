@@ -5,12 +5,15 @@ import com.fanyao.spring.security.service.IUserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.security.SecurityUtil;
+import org.springframework.beans.factory.support.SecurityContextProvider;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Objects;
@@ -27,12 +30,12 @@ import java.util.Objects;
 public class MyAuthenticationProvider implements AuthenticationProvider {
     private IUserService userService;
     private PasswordEncoder bCryptPasswordEncoder;
-
+    private UserDetailsChecker userDetailsChecker;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // 认证逻辑
-        log.info("自定义的登录验证逻辑 MyAuthenticationProvider");
+        log.info("登录验证中 MyAuthenticationProvider");
         String userName = (String) authentication.getPrincipal();
         String passWord = (String) authentication.getCredentials();
 
@@ -41,6 +44,10 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         }
 
         UserDetails userDetails = userService.loadUserByUsername(userName);
+
+        // check 账号是否被锁定
+        userDetailsChecker.check(userDetails);
+
         // 验证密码
         boolean matches = bCryptPasswordEncoder.matches(passWord, userDetails.getPassword());
 

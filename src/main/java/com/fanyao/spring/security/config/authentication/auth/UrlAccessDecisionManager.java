@@ -17,14 +17,14 @@ import java.util.Collection;
  * @author: bugProvider
  * @date: 2020/2/16 20:30
  * @description: 自定义AccessDecisionManager
- * -    UrlFilterInvocationSecurityMetadataSource 返回名称后到 AccessDecisionManager
+ * -    UrlFilterInvocationSecurityMetadataSource 返回角色集合后到 AccessDecisionManager
  */
 @Component
 public class UrlAccessDecisionManager implements AccessDecisionManager {
 
     @Override
     public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException, AuthenticationException {
-        // collection 本次需要的角色
+        // collection 本次请求需要的角色
         for (ConfigAttribute ca : collection) {
             //当前请求需要的权限
             String needRole = ca.getAttribute();
@@ -37,7 +37,7 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
                 }
             }
 
-            //当前用户所具有的权限
+            //当前用户所具有的角色
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             if (CollectionUtils.isNotEmpty(authorities)) {
                 for (GrantedAuthority authority : authorities) {

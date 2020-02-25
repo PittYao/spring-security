@@ -21,6 +21,7 @@ import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.AuthenticatedVoter;
 import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.access.vote.UnanimousBased;
+import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -30,6 +31,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
@@ -132,7 +134,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // -------------------------登录认证逻辑 开始------------------------------//
     // 自定义的认证逻辑
     private MyAuthenticationProvider getMyAuthenticationProvider() {
-        return new MyAuthenticationProvider(userService, passwordEncoder);
+        return new MyAuthenticationProvider(userService, passwordEncoder, new AccountStatusUserDetailsChecker());
     }
 
     // 默认的认证逻辑
