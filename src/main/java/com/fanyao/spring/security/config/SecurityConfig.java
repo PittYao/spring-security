@@ -9,6 +9,7 @@ import com.fanyao.spring.security.config.authentication.login.filter.MyTokenFilt
 import com.fanyao.spring.security.config.authentication.login.handler.MyAccessDeniedHandler;
 import com.fanyao.spring.security.config.authentication.login.provider.MyAuthenticationProvider;
 import com.fanyao.spring.security.config.authentication.login.voter.MyExpressionVoter;
+import com.fanyao.spring.security.config.authentication.logout.CustomLogoutHandler;
 import com.fanyao.spring.security.config.authentication.logout.MyLogOutSuccessHandler;
 import com.fanyao.spring.security.service.IMenuService;
 import com.fanyao.spring.security.service.IUserService;
@@ -16,6 +17,7 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.AuthenticatedVoter;
@@ -58,6 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private IMenuService menuService;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private Mapper mapper;
 
@@ -114,13 +118,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // 登录
-        http.addFilterBefore(new JwtLoginFilter("/login", getAuthenticationManager()), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtLoginFilter("/login", getAuthenticationManager(), stringRedisTemplate, mapper), UsernamePasswordAuthenticationFilter.class);
 
         // 校验token
-        http.addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthenticationFilter(stringRedisTemplate), UsernamePasswordAuthenticationFilter.class);
 
         // 登出
-        http.logout().logoutUrl("/logout").logoutSuccessHandler(new MyLogOutSuccessHandler());
+        http.logout()
+                .logoutUrl("/logout")
+                .addLogoutHandler(new CustomLogoutHandler(stringRedisTemplate))
+                .logoutSuccessHandler(new MyLogOutSuccessHandler(stringRedisTemplate))
+                .clearAuthentication(true);
 
         // 统一异常处理
         http.exceptionHandling()

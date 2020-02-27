@@ -1,5 +1,6 @@
 package com.fanyao.spring.security.model.dto;
 
+import com.fanyao.spring.security.model.po.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author: bugProvider
@@ -30,7 +32,6 @@ public class UserDetailsDTO implements Serializable {
      */
     private String username;
 
-    // 角色列表
-    Collection<? extends GrantedAuthority> authorities;
+    private List<Role> roles;
 
 }

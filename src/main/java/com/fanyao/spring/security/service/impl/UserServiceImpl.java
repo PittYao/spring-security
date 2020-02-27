@@ -5,11 +5,15 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fanyao.spring.security.config.authentication.exception.MySecurityException;
 import com.fanyao.spring.security.config.authentication.util.IAuthenticationFacade;
+import com.fanyao.spring.security.config.authentication.util.JwtTokenUtil;
 import com.fanyao.spring.security.dao.UserMapper;
 import com.fanyao.spring.security.model.dto.UserDTO;
+import com.fanyao.spring.security.model.dto.UserDetailsDTO;
 import com.fanyao.spring.security.model.po.User;
 import com.fanyao.spring.security.service.IUserService;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +36,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private PasswordEncoder passwordEncoder;
     @Autowired
     private IAuthenticationFacade authenticationFacade;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -101,6 +107,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setPassWord(encodePwd);
 
         this.updateById(user);
+
+        // 修改密码 将对应redis的access token废除
+        UserDetailsDTO loginUser = authenticationFacade.getLoginUser();
+        if (Objects.nonNull(loginUser) && Objects.nonNull(loginUser.getId())) {
+            String accessTokenRedisKey = JwtTokenUtil.ACCESS_TOKEN + loginUser.getId().toString();
+            stringRedisTemplate.delete(accessTokenRedisKey);
+        }
 
         return user;
     }

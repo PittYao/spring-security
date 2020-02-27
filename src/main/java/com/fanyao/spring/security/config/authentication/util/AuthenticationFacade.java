@@ -1,5 +1,6 @@
 package com.fanyao.spring.security.config.authentication.util;
 
+import com.fanyao.spring.security.model.dto.UserDetailsDTO;
 import com.fanyao.spring.security.model.po.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +20,7 @@ public class AuthenticationFacade implements IAuthenticationFacade {
     }
 
     @Override
-    public User getLoginUser() {
-        return (User) getAuthentication().getPrincipal();
+    public UserDetailsDTO getLoginUser() {
+        return (UserDetailsDTO) getAuthentication().getPrincipal();
     }
 }

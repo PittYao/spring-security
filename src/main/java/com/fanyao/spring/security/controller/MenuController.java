@@ -1,6 +1,7 @@
 package com.fanyao.spring.security.controller;
 
 import com.fanyao.spring.security.RspBean;
+import com.fanyao.spring.security.model.dto.UserDetailsDTO;
 import com.fanyao.spring.security.model.po.Menu;
 import com.fanyao.spring.security.model.po.User;
 import com.fanyao.spring.security.service.IMenuService;
@@ -29,7 +30,7 @@ public class MenuController {
     public RspBean listMenuByLoginUser(Authentication authentication){
         // 获取登录用户信息
         String name = authentication.getName();
-        User user = (User) authentication.getPrincipal();
+        UserDetailsDTO user = (UserDetailsDTO) authentication.getPrincipal();
 
         List<Menu> menus = menuService.listMenuByLoginUser();
         return RspBean.ok("登录用户菜单", menus);

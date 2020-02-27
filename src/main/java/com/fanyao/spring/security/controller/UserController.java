@@ -33,4 +33,5 @@ public class UserController {
     public User updatePwd(@RequestBody @Validated({OtherGroup.class, Default.class})  UserDTO userDTO) {
         return userService.updatePwd(userDTO);
     }
+
 }

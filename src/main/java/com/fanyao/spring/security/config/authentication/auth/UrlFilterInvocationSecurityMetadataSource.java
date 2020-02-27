@@ -40,11 +40,12 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         // 校验token是否有异常
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String principal = (String) authentication.getPrincipal();
+        String details = (String) authentication.getDetails();
 
-        if (JwtTokenUtil.SIGNATURE_EXCEPTION.equals(principal)) {
+
+        if (JwtTokenUtil.SIGNATURE_EXCEPTION.equals(details)) {
             throw new MySecurityException("token校验失败 | 不是有效token");
-        } else if (JwtTokenUtil.EXPIREDJWT_EXCEPTION.equals(principal)) {
+        } else if (JwtTokenUtil.EXPIRED_JWT_EXCEPTION.equals(details)) {
             throw new MySecurityException("token已过期 | 请重新登录");
         }
 

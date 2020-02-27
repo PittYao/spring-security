@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fanyao.spring.security.config.authentication.util.IAuthenticationFacade;
 import com.fanyao.spring.security.dao.MenuMapper;
+import com.fanyao.spring.security.model.dto.UserDetailsDTO;
 import com.fanyao.spring.security.model.po.Menu;
 import com.fanyao.spring.security.model.po.Role;
 import com.fanyao.spring.security.model.po.User;
@@ -41,11 +42,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Override
     public List<Menu> listMenuByLoginUser() {
         // 登录用户所有的角色 来 获取所有菜单资源
-        User user = authenticationFacade.getLoginUser();
-        assert user != null;
+        UserDetailsDTO userDetailsDTO = authenticationFacade.getLoginUser();
+        assert userDetailsDTO != null;
 
         // 所有角色
-        List<Role> roles = user.getRoles();
+        List<Role> roles = userDetailsDTO.getRoles();
 
         if (CollectionUtils.isEmpty(roles)) {
             throw new RuntimeException("该用户没有绑定角色");
