@@ -1,13 +1,13 @@
 package com.fanyao.spring.security.config.authentication.exception;
 
-import org.springframework.security.authentication.AccountStatusException;
+import org.springframework.security.core.AuthenticationException;
 
 /**
  * @author: bugProvider
  * @date: 2020/2/21 09:49
  * @description:
  */
-public class MySecurityException extends AccountStatusException {
+public class MySecurityException extends AuthenticationException {
 
     public MySecurityException(String msg) {
         super(msg);
