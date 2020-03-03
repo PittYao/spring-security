@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
-//    @Autowired
     private IMenuService menuService;
     private List<Menu> allMenu;
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
@@ -76,7 +75,6 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
     /**
      * 加载资源权限
      */
-//    @PostConstruct
     private void loadResourcePermission() {
         allMenu = menuService.listAll();
     }

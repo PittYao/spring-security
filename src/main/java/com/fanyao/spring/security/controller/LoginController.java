@@ -27,7 +27,7 @@ public class LoginController {
         return RspBean.error("未登录，请登录");
     }
 
-    @GetMapping("/pubic")
+    @GetMapping("/public")
     public String testPublic() {
         return "public";
     }

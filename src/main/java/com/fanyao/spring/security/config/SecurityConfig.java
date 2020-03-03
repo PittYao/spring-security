@@ -5,12 +5,14 @@ import com.fanyao.spring.security.config.authentication.auth.UrlAccessDecisionMa
 import com.fanyao.spring.security.config.authentication.auth.UrlFilterInvocationSecurityMetadataSource;
 import com.fanyao.spring.security.config.authentication.login.CustomAuthenticationFilter;
 import com.fanyao.spring.security.config.authentication.login.filter.MyTokenFilter;
+import com.fanyao.spring.security.config.authentication.login.filter.ValidateCodeFilter;
 import com.fanyao.spring.security.config.authentication.login.handler.MyAccessDeniedHandler;
 import com.fanyao.spring.security.config.authentication.login.handler.MyAuthenticationFailureHandler;
 import com.fanyao.spring.security.config.authentication.login.handler.MyAuthenticationSuccessHandler;
 import com.fanyao.spring.security.config.authentication.login.provider.MyAuthenticationProvider;
 import com.fanyao.spring.security.config.authentication.login.voter.MyExpressionVoter;
 import com.fanyao.spring.security.config.authentication.logout.MyLogOutSuccessHandler;
+import com.fanyao.spring.security.config.authentication.white.SecurityWhiteList;
 import com.fanyao.spring.security.service.IMenuService;
 import com.fanyao.spring.security.service.IUserService;
 import org.dozer.Mapper;
@@ -29,6 +31,7 @@ import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,7 +60,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private IMenuService menuService;
     @Autowired
+    private SecurityWhiteList securityWhiteList;
+    @Autowired
     private Mapper mapper;
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
+
+    public static final String loginProcessesUrl = "/login";
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -77,9 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/resources/**/*.html", "/resources/**/*.js");
-        // 不验证的url
-        web.ignoring().antMatchers("/pubic");
+        super.configure(web);
     }
 
     @Override
@@ -88,17 +95,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()//开启登录配置
 //                .antMatchers("/hello").hasRole("admin")//表示访问 /hello 这个接口，需要具备 admin 这个角色
 //                .antMatchers("/hello1").hasRole("user")//表示访问 /hello1 这个接口，需要具备 user 这个角色
-                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-                    @Override
-                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
-                        // 注册 获取路径权限是否满足的两个过滤器
-                        o.setSecurityMetadataSource(new UrlFilterInvocationSecurityMetadataSource(menuService));
-                        o.setAccessDecisionManager(new UrlAccessDecisionManager());
-                        return o;
-                    }
-                })
-                .anyRequest().authenticated()//表示剩余的其他接口，登录之后就能访问
-//                .accessDecisionManager(accessDecisionManager())// 鉴权
+                .anyRequest().authenticated()//表示剩余的其他接口 都需要认证
+                .withObjectPostProcessor(getObjectPostProcessor())// 鉴权一
+//                .accessDecisionManager(accessDecisionManager())// 鉴权二
                 .and().formLogin()
 
 //                //定义登录页面，未登录时，访问一个需要登录之后才能访问的接口，会自动跳转到该页面
@@ -135,32 +134,52 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().httpBasic()
                 .and().csrf().disable();
 
-        // 登出
-        http.logout().logoutUrl("/logout").logoutSuccessHandler(new MyLogOutSuccessHandler());
-
-        // json登录
-        http.addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
-        http.exceptionHandling()
-                // 权限不足
-                .accessDeniedHandler(new MyAccessDeniedHandler())
-                // 直接访问接口 返回异常json
-                .authenticationEntryPoint(new MyAuthenticationEntryPoint());
 
         // 在LogoutFilter后加入自定义过滤器
         http.addFilterAfter(new MyTokenFilter(), LogoutFilter.class);
+
+        // 添加验证码校验过滤器
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // 登录
+        http.addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        // 登出
+        http.logout().logoutUrl("/logout").logoutSuccessHandler(new MyLogOutSuccessHandler());
+
+        // 异常处理
+        http.exceptionHandling()
+                // 权限不足
+                .accessDeniedHandler(new MyAccessDeniedHandler())
+                // 未登录直接访问接口 返回异常json
+                .authenticationEntryPoint(new MyAuthenticationEntryPoint());
+
+
+    }
+
+    // 鉴权
+    private ObjectPostProcessor<FilterSecurityInterceptor> getObjectPostProcessor() {
+        return new ObjectPostProcessor<FilterSecurityInterceptor>() {
+            @Override
+            public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                // 注册 获取路径权限是否满足的两个过滤器
+                o.setSecurityMetadataSource(new UrlFilterInvocationSecurityMetadataSource(menuService));
+                o.setAccessDecisionManager(new UrlAccessDecisionManager(securityWhiteList));
+                return o;
+            }
+        };
     }
 
     /**
      * 自定义json登录/login过滤器
      */
-    private CustomAuthenticationFilter customAuthenticationFilter() throws Exception {
+    private CustomAuthenticationFilter customAuthenticationFilter() {
         CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
 
         filter.setAuthenticationSuccessHandler(new MyAuthenticationSuccessHandler(mapper));
         filter.setAuthenticationFailureHandler(new MyAuthenticationFailureHandler());
         // 登录地址
-        filter.setFilterProcessesUrl("/login");
+        filter.setFilterProcessesUrl(loginProcessesUrl);
         // authenticationManagerBean默认的认证逻辑
 //        filter.setAuthenticationManager(authenticationManagerBean());
         // 多方式登录组合

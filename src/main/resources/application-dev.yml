@@ -1,0 +1,6 @@
+security:
+  whiteList:
+    - "/html/**"
+    - "/code/image"
+    - "/favicon.ico"
+    - "/public"

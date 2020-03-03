@@ -2,6 +2,7 @@ package com.fanyao.spring.security.config.authentication.login.handler;
 
 import com.fanyao.spring.security.RspBean;
 import com.fanyao.spring.security.config.authentication.exception.MySecurityException;
+import com.fanyao.spring.security.config.authentication.exception.ValidateCodeException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
@@ -35,11 +36,11 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
             rspBean.setMsg("账户过期");
         } else if (e instanceof DisabledException) {
             rspBean.setMsg("账户被禁用过期");
-        } else if (e instanceof BadCredentialsException ) {
+        } else if (e instanceof BadCredentialsException) {
             rspBean.setMsg("用户名或密码输入错误");
-        } else if (e instanceof UsernameNotFoundException){
+        } else if (e instanceof UsernameNotFoundException) {
             rspBean.setMsg("用户名不存在或用户未指定角色");
-        } else if (e instanceof MySecurityException){
+        } else if (e instanceof MySecurityException || e instanceof ValidateCodeException) {
             rspBean.setMsg(e.getMessage());
         } else {
             rspBean.setMsg("登录失败!");

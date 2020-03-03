@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MQ</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        function login() {
+            var imageCode = $("#code").val();
+            $.post("/login", { imageCode: imageCode} );
+        }
+    </script>
+</head>
+<body>
+<span style="display: inline">
+    <input type="text" id="code" name="imageCode" placeholder="验证码" style="width: 50%;"/>
+    <img src="/code/image"/>
+    <button onclick="login()">登录</button>
+</span>
+</body>
+</html>
