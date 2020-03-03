@@ -12,6 +12,7 @@ import java.util.Random;
  * @description: 图形验证码
  */
 public class ImageCodeUtil {
+
     public static ImageCode createImageCode() {
 
         int width = 100; // 验证码图片宽度
@@ -47,7 +48,7 @@ public class ImageCodeUtil {
         return new ImageCode(image, sRand.toString(), expireIn);
     }
 
-    public static Color getRandColor(int fc, int bc) {
+    private static Color getRandColor(int fc, int bc) {
         Random random = new Random();
         if (fc > 255) {
             fc = 255;

@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MQ</title>
+    <title>login</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
         function login() {
             var imageCode = $("#code").val();
-            $.post("/login", { imageCode: imageCode} );
+            $.post("/login", {imageCode: imageCode});
         }
     </script>
 </head>
