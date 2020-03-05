@@ -7,15 +7,27 @@
     <script>
         function login() {
             var imageCode = $("#code").val();
-            $.post("/login", {imageCode: imageCode});
+            var username = $("#username").val();
+            var password = $("#password").val();
+            $.post("/login", {imageCode: imageCode, username: username, password: password});
         }
     </script>
 </head>
 <body>
-<span style="display: inline">
-    <input type="text" id="code" name="imageCode" placeholder="验证码" style="width: 50%;"/>
-    <img src="/code/image"/>
-    <button onclick="login()">登录</button>
-</span>
+<div>
+        <span style="display: inline">
+        <input type="text" id="code" name="imageCode" placeholder="验证码" style="width: 50%;"/>
+        <img src="/code/image"/>
+        </span>
+</div>
+<div>
+    <input type="text" id="username" placeholder="账号" style="width: 50%;"/>
+</div>
+<div>
+    <input type="text" id="password" placeholder="密码" style="width: 50%;"/>
+</div>
+<button onclick="login()">登录</button>
+
+
 </body>
 </html>

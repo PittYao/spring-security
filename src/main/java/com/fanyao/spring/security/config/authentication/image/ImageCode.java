@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @description: 图形验证码
  */
 @Data
-public class ImageCode {
+public class ImageCode  {
     // 图片
     private BufferedImage image;
     // 验证码
@@ -31,8 +31,10 @@ public class ImageCode {
         this.expireTime = expireTime;
     }
 
-    // 判断验证码是否已过期
-    public boolean isExpire() {
-        return LocalDateTime.now().isAfter(expireTime);
+    public ImageCodeRedisDTO convert2RedisDTO(){
+        return ImageCodeRedisDTO.builder()
+                .code(this.code)
+                .expireTime(this.expireTime)
+                .build();
     }
 }

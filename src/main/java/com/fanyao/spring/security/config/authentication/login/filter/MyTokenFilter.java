@@ -15,7 +15,7 @@ import java.io.IOException;
 public class MyTokenFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        log.info("执行自定义过滤器 MyTokenFilter");
+//        log.info("执行自定义过滤器 MyTokenFilter");
         filterChain.doFilter(request, response);
     }
 }

@@ -3,6 +3,7 @@ package com.fanyao.spring.security.config.authentication.login.filter;
 import cn.hutool.core.date.DateUtil;
 import com.fanyao.spring.security.config.authentication.exception.MySecurityException;
 import com.fanyao.spring.security.config.authentication.image.ImageCode;
+import com.fanyao.spring.security.config.authentication.image.ImageCodeRedisDTO;
 import com.fanyao.spring.security.config.authentication.login.handler.MyAuthenticationFailureHandler;
 import com.fanyao.spring.security.controller.ValidateController;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     private AuthenticationFailureHandler authenticationFailureHandler = new MyAuthenticationFailureHandler();
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+    private static final String imgCodeParameter = "imageCode";
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
@@ -54,8 +56,8 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
     // 验证逻辑
     private void validateCode(ServletWebRequest servletWebRequest) throws ServletRequestBindingException {
-        ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(servletWebRequest, ValidateController.SESSION_KEY_IMAGE_CODE);
-        String codeInRequest = ServletRequestUtils.getStringParameter(servletWebRequest.getRequest(), "imageCode");
+        ImageCodeRedisDTO codeInSession = (ImageCodeRedisDTO) sessionStrategy.getAttribute(servletWebRequest, ValidateController.SESSION_KEY_IMAGE_CODE);
+        String codeInRequest = ServletRequestUtils.getStringParameter(servletWebRequest.getRequest(), imgCodeParameter);
 
         log.info("时间:{} 请求验证码 ===> {} 用户输入验证码 ===> {}", DateUtil.now(), codeInSession.getCode(), codeInRequest);
 

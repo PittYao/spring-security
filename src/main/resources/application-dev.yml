@@ -4,3 +4,5 @@ security:
     - "/code/image"
     - "/favicon.ico"
     - "/public"
+    - "/session/invalid"
+

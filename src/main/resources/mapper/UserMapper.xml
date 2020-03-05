@@ -5,7 +5,7 @@
     <resultMap id="BaseResultMap" type="com.fanyao.spring.security.model.po.User">
         <id column="uid" property="id"/>
         <result column="password" property="passWord"/>
-        <result column="username" property="userName"/>
+        <result column="username" property="username"/>
         <result column="enabled" property="enabled"/>
         <result column="account_non_expired" property="accountNonExpired"/>
         <result column="account_non_locked" property="accountNonLocked"/>

@@ -1,6 +1,7 @@
 package com.fanyao.spring.security.controller;
 
 import com.fanyao.spring.security.config.authentication.image.ImageCode;
+import com.fanyao.spring.security.config.authentication.image.ImageCodeRedisDTO;
 import com.fanyao.spring.security.config.authentication.util.ImageCodeUtil;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -29,7 +30,8 @@ public class ValidateController {
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ImageCode imageCode = ImageCodeUtil.createImageCode();
         // 验证码存储到session中
-        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY_IMAGE_CODE, imageCode);
+        ImageCodeRedisDTO imageCodeRedisDTO = imageCode.convert2RedisDTO();
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY_IMAGE_CODE, imageCodeRedisDTO);
         ImageIO.write(imageCode.getImage(), "jpeg", response.getOutputStream());
     }
 }

@@ -65,7 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         // TODO
         User user = User.builder()
-                .userName(userDTO.getUserName())
+                .username(userDTO.getUserName())
                 .passWord(userDTO.getPassWord())
                 .enabled(true)
                 .accountNonExpired(true)

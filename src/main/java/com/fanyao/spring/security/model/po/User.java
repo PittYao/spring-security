@@ -24,8 +24,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @Builder
 public class User implements Serializable, UserDetails {
 
@@ -48,7 +46,7 @@ public class User implements Serializable, UserDetails {
      * 真实姓名
      */
     @TableField("username")
-    private String userName;
+    private String username;
 
     /**
      * 真实姓名
@@ -92,7 +90,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
@@ -117,5 +115,20 @@ public class User implements Serializable, UserDetails {
 
     public List<Role> getRoles() {
         return roles;
+    }
+
+    @Override
+    public String toString() {
+        return this.username;
+    }
+
+    @Override
+    public int hashCode() {
+        return username.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.toString().equals(obj.toString());
     }
 }

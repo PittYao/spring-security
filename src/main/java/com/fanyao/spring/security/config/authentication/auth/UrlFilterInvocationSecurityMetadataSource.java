@@ -15,6 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
         //获取请求地址
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
 
-        log.info("通过当前的请求地址，获取该地址需要的用户角色名称集合");
+        log.info("请求地址 ===> {}",requestUrl);
 
         if (CollectionUtils.isEmpty(allMenu)) {
             loadResourcePermission();
@@ -53,10 +54,11 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
 
                 String[] values = new String[roleNames.size()];
                 roleNames.toArray(values);
-
+                log.info("访问该地址需要的角色为 : {}", Arrays.toString(values));
                 return SecurityConfig.createList(values);
             }
         }
+
         //没有匹配上的资源，都是登录访问
         return SecurityConfig.createList("ROLE_LOGIN");
         // return null; 当前这个请求不需要任何角色就能访问，甚至不需要登录

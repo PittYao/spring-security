@@ -1,5 +1,8 @@
 server:
   port: 8080
+  servlet:
+    session:
+      timeout: 3600 #session60秒过期
 
 #spring:
 #  security:
@@ -16,6 +19,13 @@ spring:
     username: root
     password: root
 
+  session:
+    store-type: redis # session 用redis存储
+  redis:
+    database: 1
+    host: localhost
+    port: 6379
+    #password:
 
 
 

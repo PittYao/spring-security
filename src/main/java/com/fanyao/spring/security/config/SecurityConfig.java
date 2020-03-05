@@ -12,6 +12,7 @@ import com.fanyao.spring.security.config.authentication.login.handler.MyAuthenti
 import com.fanyao.spring.security.config.authentication.login.provider.MyAuthenticationProvider;
 import com.fanyao.spring.security.config.authentication.login.voter.MyExpressionVoter;
 import com.fanyao.spring.security.config.authentication.logout.MyLogOutSuccessHandler;
+import com.fanyao.spring.security.config.authentication.session.MySessionExpiredStrategy;
 import com.fanyao.spring.security.config.authentication.white.SecurityWhiteList;
 import com.fanyao.spring.security.service.IMenuService;
 import com.fanyao.spring.security.service.IUserService;
@@ -33,12 +34,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,6 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Mapper mapper;
     @Autowired
     private ValidateCodeFilter validateCodeFilter;
+    @Autowired
+    private MySessionExpiredStrategy sessionExpiredStrategy;
+
 
     public static final String loginProcessesUrl = "/login";
 
@@ -154,7 +161,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 未登录直接访问接口 返回异常json
                 .authenticationEntryPoint(new MyAuthenticationEntryPoint());
 
-
+        // 添加 Session管理器
+        http.sessionManagement()
+                // Session失效后跳转到这个链接
+                .invalidSessionUrl("/session/invalid")
+                // 最大Session并发数量为1个
+                // 如果一个账户登录后，在另一个客户端也使用这个账户登录，那么第一个使用登录的账户将会失效
+                .maximumSessions(1)
+//                .maxSessionsPreventsLogin(true)
+                // 异常处理
+                .expiredSessionStrategy
+                        (sessionExpiredStrategy)
+                .expiredUrl("/login");
     }
 
     // 鉴权

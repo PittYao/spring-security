@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.fanyao.spring.security.config.authentication.white.SecurityWhiteList;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDecisionManager;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
  * @description: 自定义AccessDecisionManager
  * -    UrlFilterInvocationSecurityMetadataSource 返回名称后到 AccessDecisionManager
  */
+@Slf4j
 @Component
 public class UrlAccessDecisionManager implements AccessDecisionManager {
 
@@ -53,6 +55,7 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
                     if (CollectionUtils.isNotEmpty(whiteList)) {
                         for (String whiteUrl : whiteList) {
                             if (antPathMatcher.match(whiteUrl, requestUrl)) {
+                                log.info("访问了白名单 : {}", requestUrl);
                                 return;
                             }
                         }
