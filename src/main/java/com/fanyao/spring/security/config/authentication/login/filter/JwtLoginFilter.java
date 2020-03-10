@@ -107,21 +107,26 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
 
         String userInfo = JSON.toJSONString(userDetailsDTO);
 
-        // 创建token,放入响应头
+        // 创建token，放入用户信息
+        String tokenId = IdUtil.fastSimpleUUID();
+
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtTokenUtil.AUTHORITIES, roleNames);
         claims.put(JwtTokenUtil.USER_ID, user.getId());
-        claims.put(JwtTokenUtil.USER_INFO, userInfo);
+        claims.put(JwtTokenUtil.USER_INFO, userInfo); // 用户信息
+        claims.put(JwtTokenUtil.TOKEN_ID, tokenId);
 
-        // 验证码存入redis: 用户id ---> code
-        String currentSeconds = String.valueOf(DateUtil.currentSeconds());
+        // 验证码存入redis,并有过期时间: 用户id ---> 时间
         String accessTokenRedisKey = JwtTokenUtil.ACCESS_TOKEN + user.getId();
-        log.info("access token 信息 : {} ==> {}", accessTokenRedisKey, currentSeconds);
+        String tokenValue = String.valueOf(DateUtil.currentSeconds()).concat("_").concat(tokenId);
+        log.info("redis access_token 键: {} | 值: {}", accessTokenRedisKey, tokenValue);
+        // ACCESS_TOKEN:userId:1 ===> 1583804094_tokenId
 
-        stringRedisTemplate.opsForValue().set(accessTokenRedisKey, currentSeconds, JwtTokenUtil.REDIS_EXPIRED, TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(accessTokenRedisKey, tokenValue, JwtTokenUtil.REDIS_EXPIRED, TimeUnit.SECONDS);
 
 //        String jwt = JwtTokenUtil.createToken(null, authResult.getName(), 1800L, claims);
-        String jwt = JwtTokenUtil.createForeverToken(null, authResult.getName(), claims);
+        // 创建永久token
+        String jwt = JwtTokenUtil.createForeverToken(tokenId, null, authResult.getName(), claims);
 
         // 禁止前端缓存
         resp.setHeader("Access-Control-Expose-Headers", JwtTokenUtil.TOKEN_HEADER);

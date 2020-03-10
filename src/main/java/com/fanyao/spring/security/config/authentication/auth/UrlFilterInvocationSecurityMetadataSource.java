@@ -42,19 +42,23 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String details = (String) authentication.getDetails();
 
-
+        // 异常检查
         if (JwtTokenUtil.SIGNATURE_EXCEPTION.equals(details)) {
             throw new MySecurityException("token校验失败 | 不是有效token");
         } else if (JwtTokenUtil.EXPIRED_JWT_EXCEPTION.equals(details)) {
             throw new MySecurityException("token已过期 | 请重新登录");
+        } else if (JwtTokenUtil.HEADER_NO_TOKEN.equals(details)) {
+            throw new MySecurityException("请求头未携带token");
+        } else if (JwtTokenUtil.MULTIPLE_JWT_EXCEPTION.equals(details)) {
+            throw new MySecurityException("该账户已在其他设备登陆");
         }
 
 
-        FilterInvocation filterInvocation = (FilterInvocation) object;
         //获取请求地址
+        FilterInvocation filterInvocation = (FilterInvocation) object;
         String requestUrl = filterInvocation.getRequestUrl();
 
-        log.info("通过当前的请求地址 ===> {}，获取该地址需要的用户角色名称集合", requestUrl);
+        log.info("通过当前的请求地址 {} | 正获取该地址需要的用户角色名称集合", requestUrl);
 
         // FIXME 只加载了一次全部资源,修改数据库后,只能重启服务,才会生效,redis加载菜单资源
         if (CollectionUtils.isEmpty(allMenu)) {
@@ -62,7 +66,7 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
         }
 
         for (Menu menu : allMenu) {
-            // FIXME url匹配 精准匹配未排序
+            // FIXME url匹配 精准匹配未排序 优先级问题 /basic/h/h ===> /basic/** ; /basic/h/h
             if (antPathMatcher.match(menu.getUrl(), requestUrl) && !CollectionUtils.isEmpty(menu.getRoles())) {
                 // 构建 角色名 集合
                 List<String> roleNames = menu.getRoles().stream().map(Role::getName).collect(Collectors.toList());

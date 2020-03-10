@@ -33,6 +33,7 @@ public class JwtTokenUtil {
     public static final String AUTHORITIES = "authorities";
     public static final String USER_ID = "userId";
     public static final String USER_INFO = "userInfo";
+    public static final String TOKEN_ID = "tokenId";
     //    public static final Integer REDIS_EXPIRED = 7 * 24 * 60 * 60; // 7天
     public static final Integer REDIS_EXPIRED = 60 * 60; // 1天
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN:userId:";
@@ -41,6 +42,8 @@ public class JwtTokenUtil {
     //--------Exception---------------//
     public static final String SIGNATURE_EXCEPTION = "SignatureException";
     public static final String EXPIRED_JWT_EXCEPTION = "ExpiredJwtException";
+    public static final String MULTIPLE_JWT_EXCEPTION = "MultipleJwtException";
+    public static final String HEADER_NO_TOKEN = "HeaderNoToken";
     //--------Exception---------------//
 
     /**
@@ -98,10 +101,10 @@ public class JwtTokenUtil {
      * @return
      * @description
      */
-    public static String createForeverToken(String issuer, String subject, Map<String, Object> claims) {
+    public static String createForeverToken(String id, String issuer, String subject, Map<String, Object> claims) {
         return Jwts.builder()
                 // JWT_ID：是JWT的唯一标识，根据业务需要，这个可以设置为一个不重复的值，主要用来作为一次性token,从而回避重放攻击。
-//                .setId(id)
+                .setId(id)
                 // 签名算法以及密匙
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 // 自定义属性

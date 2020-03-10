@@ -36,32 +36,39 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+        log.info("执行JwtAuthenticationFilter");
         UsernamePasswordAuthenticationToken authentication;
         String token_exception = "";
 
         String jwtToken = httpServletRequest.getHeader(JwtTokenUtil.TOKEN_HEADER);
 
         if (Strings.isEmpty(jwtToken)) {
-            throw new MySecurityException("访问未带token,请登录");
-        }
-
-        try {
-            JwtTokenUtil.isExpiration(jwtToken);
-        } catch (SignatureException e) {
-            log.error("token校验失败 | token签名不正确");
-            e.printStackTrace();
-            token_exception = JwtTokenUtil.SIGNATURE_EXCEPTION;
-        } catch (ExpiredJwtException e) {
-            //  FIXME 过期后 续签 或者 指定重新登录
-            log.error("token校验失败 | token已过期 | token信息 ===> {}", e.getClaims().toString());
-            e.printStackTrace();
-            token_exception = JwtTokenUtil.EXPIRED_JWT_EXCEPTION;
-        } finally {
-            // FIXME 校验redis中是否有access token ,若无则已过期（临时解决修改密码等问题）
-            String accessTokenRedisKey = JwtTokenUtil.getAccessTokenRedisKey(jwtToken);
-            // redis 不存在既过期
-            if (Strings.isBlank(stringRedisTemplate.opsForValue().get(accessTokenRedisKey))) {
+            log.warn("请求 {} 时| 请求头未携带token", httpServletRequest.getRequestURI());
+            token_exception = JwtTokenUtil.HEADER_NO_TOKEN;
+        } else {
+            try {
+                JwtTokenUtil.isExpiration(jwtToken);
+            } catch (SignatureException e) {
+                log.error("token校验失败 | token签名不正确");
+                e.printStackTrace();
+                token_exception = JwtTokenUtil.SIGNATURE_EXCEPTION;
+            } catch (ExpiredJwtException e) {
+                //  FIXME 过期后 续签 或者 指定重新登录
+                log.error("token校验失败 | token已过期 | token信息 ===> {}", e.getClaims().toString());
+                e.printStackTrace();
                 token_exception = JwtTokenUtil.EXPIRED_JWT_EXCEPTION;
+            } finally {
+                // FIXME 校验redis中是否有access token ,若无则已过期（临时解决修改密码等问题）
+                String tokenId = JwtTokenUtil.getTokenBody(jwtToken).get(JwtTokenUtil.TOKEN_ID, String.class);
+                String accessTokenRedisKey = JwtTokenUtil.getAccessTokenRedisKey(jwtToken);
+                // redis 不存在既过期
+                String tokenValue = stringRedisTemplate.opsForValue().get(accessTokenRedisKey);
+                if (Strings.isBlank(tokenValue)) {
+                    token_exception = JwtTokenUtil.EXPIRED_JWT_EXCEPTION;
+                } else if (Strings.isNotBlank(tokenId) && !tokenValue.contains(tokenId)) {
+                    // TODO 若有token，但tokenId不同则已在其他地方登陆
+                    token_exception = JwtTokenUtil.MULTIPLE_JWT_EXCEPTION;
+                }
             }
         }
 
