@@ -92,18 +92,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()//开启登录配置
-//                 鉴权
-                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-                    @Override
-                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
-                        // 注册 获取路径权限是否满足的两个过滤器
-                        o.setSecurityMetadataSource(new UrlFilterInvocationSecurityMetadataSource(menuService));
-                        o.setAccessDecisionManager(new UrlAccessDecisionManager());
-                        return o;
-                    }
-                })
-
+                .authorizeRequests() // 开启登录配置
+                .withObjectPostProcessor(getObjectPostProcessor())  // 鉴权
                 .anyRequest().authenticated()//表示剩余的其他接口，登录之后就能访问
                 .and()
                 .formLogin()
@@ -137,6 +127,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 不登录直接访问接口 返回异常json
                 .authenticationEntryPoint(new MyAuthenticationEntryPoint());
 
+    }
+
+    // 鉴权
+    private ObjectPostProcessor<FilterSecurityInterceptor> getObjectPostProcessor() {
+        return new ObjectPostProcessor<FilterSecurityInterceptor>() {
+            @Override
+            public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                // 注册 获取路径权限是否满足的两个过滤器
+                o.setSecurityMetadataSource(new UrlFilterInvocationSecurityMetadataSource(menuService));
+                o.setAccessDecisionManager(new UrlAccessDecisionManager());
+                return o;
+            }
+        };
     }
 
     // -------------------------登录认证逻辑 开始------------------------------//

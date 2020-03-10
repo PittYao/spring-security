@@ -56,7 +56,7 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
 
         log.info("通过当前的请求地址 ===> {}，获取该地址需要的用户角色名称集合", requestUrl);
 
-        // FIXME 只加载了一次全部资源,修改数据库后,只能重新请求token,才会生效,redis加载菜单资源
+        // FIXME 只加载了一次全部资源,修改数据库后,只能重启服务,才会生效,redis加载菜单资源
         if (CollectionUtils.isEmpty(allMenu)) {
             loadResourcePermission();
         }
